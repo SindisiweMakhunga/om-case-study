@@ -1,0 +1,35 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+
+metadata:
+  name: example-template
+  title: Example Template
+  description: Creates a file in the temporary workspace
+
+spec:
+  owner: guests
+  type: service
+
+  parameters:
+    - title: File Details
+      required:
+        - filename
+        - contents
+      properties:
+        filename:
+          title: File Name
+          type: string
+          default: hello.txt
+
+        contents:
+          title: File Contents
+          type: string
+          default: Hello from Backstage!
+
+  steps:
+    - id: create-file
+      name: Create File
+      action: my:custom:action
+      input:
+        filename: ${{ parameters.filename }}
+        contents: ${{ parameters.contents }}
